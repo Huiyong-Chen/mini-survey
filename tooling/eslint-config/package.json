@@ -1,0 +1,23 @@
+{
+  "name": "@survey/eslint-config",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./*": "./src/*.mts"
+  },
+  "dependencies": {
+    "@eslint/js": "catalog:eslint",
+    "eslint": "catalog:eslint",
+    "eslint-plugin-react-hooks": "catalog:react",
+    "eslint-plugin-react-refresh": "catalog:react",
+    "globals": "catalog:eslint",
+    "typescript-eslint": "catalog:eslint"
+  },
+  "devDependencies": {
+    "@survey/ts-config": "workspace:*"
+  },
+  "peerDependencies": {
+    "eslint": "catalog:eslint"
+  }
+}

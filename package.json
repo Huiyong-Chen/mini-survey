@@ -1,0 +1,41 @@
+{
+  "name": "mini-survey",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "chyoai173@gmail.com ",
+  "main": "index.js",
+  "scripts": {
+    "clean": "pnpm -r exec rm -rf node_modules dist",
+    "format": "prettier . --write",
+    "lint": "eslint . && pnpm -r lint --color",
+    "lint:fix": "eslint . --fix && pnpm -r lint:fix --color",
+    "lint-staged": "lint-staged --config lint-staged.config.mts",
+    "prepare": "husky",
+    "react:dev": "pnpm -F @survey/react dev",
+    "test": "vitest run",
+    "test:changed": "vitest run --changed",
+    "test:ui": "vitest --ui",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "catalog:lint",
+    "@commitlint/config-conventional": "catalog:lint",
+    "@commitlint/types": "catalog:lint",
+    "@survey/eslint-config": "workspace:*",
+    "@survey/ts-config": "workspace:*",
+    "@types/node": "catalog:",
+    "@vitest/ui": "catalog:test",
+    "eslint": "catalog:eslint",
+    "eslint-config-prettier": "catalog:prettier",
+    "husky": "catalog:lint",
+    "jiti": "catalog:eslint",
+    "lint-staged": "catalog:lint",
+    "prettier": "catalog:prettier",
+    "sort-package-json": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:test"
+  },
+  "packageManager": "pnpm@10.33.0"
+}

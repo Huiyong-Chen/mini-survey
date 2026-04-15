@@ -1,0 +1,42 @@
+packages:
+  - 'apps/*'
+  - 'servers/*'
+  - 'packages/*'
+  - 'tooling/*'
+
+catalog:
+  '@types/node': ^25.6.0
+  sort-package-json: ^3.6.1
+  tsx: ^4.21.0
+  typescript: ^6.0.2
+  vite: ^8.0.8
+
+catalogMode: prefer
+
+catalogs:
+  eslint:
+    '@eslint/js': ^9.39.4
+    eslint: ^9.39.4
+    globals: ^17.5.0
+    jiti: ^2.6.1
+    typescript-eslint: ^8.58.1
+  lint:
+    '@commitlint/cli': ^20.5.0
+    '@commitlint/config-conventional': ^20.5.0
+    '@commitlint/types': ^20.5.0
+    husky: ^9.1.7
+    lint-staged: ^16.4.0
+  prettier:
+    eslint-config-prettier: ^10.1.8
+    prettier: ^3.8.2
+  react:
+    '@types/react': ^19.2.14
+    '@types/react-dom': ^19.2.3
+    '@vitejs/plugin-react': ^6.0.1
+    eslint-plugin-react-hooks: ^7.0.1
+    eslint-plugin-react-refresh: ^0.5.2
+    react: ^19.2.5
+    react-dom: ^19.2.5
+  test:
+    '@vitest/ui': ^4.1.4
+    vitest: ^4.1.4

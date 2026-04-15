@@ -1,0 +1,9 @@
+{
+  "extends": "@survey/ts-config/tsconfig.node.json",
+  "compilerOptions": {
+    // "composite": false,
+    // "module": "nodenext",
+    // "moduleResolution": "bundler"
+  },
+  "include": ["*.mts", "src"]
+}

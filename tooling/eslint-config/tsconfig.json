@@ -1,0 +1,5 @@
+{
+  "extends": "@survey/ts-config/tsconfig.node.json",
+
+  "include": ["./src/*.mts"]
+}

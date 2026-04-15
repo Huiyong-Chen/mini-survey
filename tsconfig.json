@@ -1,0 +1,8 @@
+{
+  "extends": "@survey/ts-config/tsconfig.node.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["**/*.mts"],
+  "exclude": ["apps/**"]
+}

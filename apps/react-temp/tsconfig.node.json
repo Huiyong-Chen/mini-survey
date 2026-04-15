@@ -1,0 +1,5 @@
+{
+  "extends": "@survey/ts-config/tsconfig.node.json",
+  "compilerOptions": { "module": "esnext", "moduleResolution": "bundler", "types": ["node"] },
+  "include": ["*.config.mts"]
+}
