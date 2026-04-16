@@ -13,7 +13,7 @@
     "lint:fix": "eslint . --fix && pnpm -r lint:fix --color",
     "lint-staged": "lint-staged --config lint-staged.config.mts",
     "prepare": "husky",
-    "react:dev": "pnpm -F @survey/react dev",
+    "survey:dev": "pnpm -F @survey/app dev",
     "test": "vitest run",
     "test:changed": "vitest run --changed",
     "test:ui": "vitest --ui",

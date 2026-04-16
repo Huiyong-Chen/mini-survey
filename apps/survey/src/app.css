@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+.css-var-root.ant-layout {
+  /* --ant-layout-header-bg: transparent; */
+}
+.css-var-root.ant-layout-sider {
+  --ant-layout-sider-bg: transparent;
+}

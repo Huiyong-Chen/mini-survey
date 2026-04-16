@@ -1,0 +1,14 @@
+.layout {
+  height: 100%;
+}
+.header {
+  padding: 0 24px;
+  display: flex;
+  .right {
+    margin-left: auto;
+  }
+}
+.footer {
+  text-align: center;
+  border-top: 1px solid #e8e8e8;
+}

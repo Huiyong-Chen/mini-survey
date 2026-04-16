@@ -1,5 +1,5 @@
 {
-  "name": "@survey/react",
+  "name": "@survey/app",
   "version": "1.0.0",
   "private": true,
   "keywords": [],
@@ -12,8 +12,11 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@ant-design/icons": "catalog:antd",
+    "antd": "catalog:antd",
     "react": "catalog:react",
-    "react-dom": "catalog:react"
+    "react-dom": "catalog:react",
+    "react-router": "catalog:react"
   },
   "devDependencies": {
     "@survey/ts-config": "workspace:*",
@@ -21,6 +24,7 @@
     "@types/react-dom": "catalog:react",
     "@vitejs/plugin-react": "catalog:react",
     "eslint": "catalog:eslint",
+    "sass-embedded": "catalog:css",
     "vite": "catalog:"
   },
   "packageManager": "pnpm@10.33.0"

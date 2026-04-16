@@ -1,0 +1,39 @@
+.container {
+  padding: 12px;
+  border-radius: 3px;
+  background-color: #fff;
+  &:hover {
+    box-shadow: 0px 4px 10px #e8e8e8;
+  }
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+
+    .left {
+    }
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+    }
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+
+    .left {
+    }
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      button {
+        color: #999;
+      }
+    }
+  }
+}
