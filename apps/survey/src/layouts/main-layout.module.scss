@@ -1,5 +1,7 @@
 .layout {
   height: 100%;
+  width: 100%;
+  position: absolute;
 }
 .header {
   padding: 0 24px;
@@ -7,6 +9,9 @@
   .right {
     margin-left: auto;
   }
+}
+.container {
+  overflow: hidden;
 }
 .footer {
   text-align: center;

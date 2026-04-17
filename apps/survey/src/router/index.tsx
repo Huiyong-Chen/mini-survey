@@ -10,16 +10,14 @@ import { Trash } from '@/pages/mine/Trash';
 import { NotFound } from '@/pages/not-found/NotFound';
 import { Edit } from '@/pages/questions/Edit';
 import { Stat } from '@/pages/questions/Stat';
-import { Children } from 'react';
-import { redirect } from 'react-router';
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, redirect } from 'react-router';
 
 export const router = createBrowserRouter([
+  { path: '/', Component: Home },
   {
     path: '/',
     Component: MainLayout,
     children: [
-      { index: true, Component: Home },
       { path: 'login', Component: Login },
       { path: 'register', Component: Register },
       {
@@ -64,3 +62,10 @@ export const router = createBrowserRouter([
   { path: '/404', Component: NotFound },
   { path: '*', Component: NotFound },
 ]);
+
+export const HOME_PATH = '/';
+export const LOGIN_PATH = '/login';
+export const REGISTER_PATH = '/register';
+export const MANAGE_LIST_PATH = '/manage/list';
+export const MANAGE_STAR_PATH = '/manage/star';
+export const MANAGE_TRASH_PATH = '/manage/trash';

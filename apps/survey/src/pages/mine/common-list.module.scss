@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  column-gap: 8px;
+  margin-bottom: 16px;
+  align-items: center;
+  h3 {
+    margin-bottom: 0;
+  }
+}
+.list-search {
+  margin-left: auto;
+}
+.space {
+  width: 100%;
+}
+
+.footer {
+  margin-top: 20px;
+}

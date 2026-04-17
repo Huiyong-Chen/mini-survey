@@ -12,7 +12,7 @@ export const MainLayout: FC = () => {
         <Logo />
         <UserInfo className={style.right} />
       </Layout.Header>
-      <Layout.Content>
+      <Layout.Content className={style.container}>
         <Outlet />
       </Layout.Content>
       <Layout.Footer className={style.footer}>

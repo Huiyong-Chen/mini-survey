@@ -1,13 +1,16 @@
-import { QuestionCard, type QuestionCardProps } from '@/components/QuestionCard';
-import style from './question-list.module.scss';
+import { Empty, Space, Typography } from 'antd';
 import { useState, type FC } from 'react';
+import style from './common-list.module.scss';
+import { QuestionCard, type QuestionCardProps } from './components/QuestionCard';
+import { ListSearch } from './components/ListSearch';
+
 const rowQuestionList: QuestionCardProps[] = [
   {
     id: 'q1',
     title: '问卷1',
     createdTime: Date.now(),
-    isPublished: false,
-    isStar: false,
+    isPublished: true,
+    isStar: true,
     answerCount: 10,
   },
   {
@@ -31,7 +34,7 @@ const rowQuestionList: QuestionCardProps[] = [
     title: '问卷4',
     createdTime: Date.now(),
     isPublished: true,
-    isStar: false,
+    isStar: true,
     answerCount: 10,
   },
 ];
@@ -40,13 +43,16 @@ export const StarQuestionList: FC = () => {
 
   return (
     <>
-      <div className={style.header}>header</div>
-      <div className={style.content}>
-        {questionList.map((question) => (
-          <QuestionCard key={question.id} {...question} />
-        ))}
+      <div className={style.header}>
+        <Typography.Title level={3}>我的问卷</Typography.Title>
+        <ListSearch className={style['list-search']} />
       </div>
-      <div className={style.footer}>footer</div>
+      <Space orientation="vertical" className={style.space}>
+        {questionList.length === 0 && <Empty />}
+        {questionList.length &&
+          questionList.map((question) => <QuestionCard key={question.id} {...question} />)}
+      </Space>
+      <div className={style.footer}>分页</div>
     </>
   );
 };

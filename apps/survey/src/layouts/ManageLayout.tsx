@@ -1,14 +1,9 @@
+import { MANAGE_LIST_PATH, MANAGE_STAR_PATH, MANAGE_TRASH_PATH } from '@/router';
 import { BarsOutlined, DeleteOutlined, PlusOutlined, StarOutlined } from '@ant-design/icons';
 import { Button, Layout, Space } from 'antd';
 import type { FC } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router';
 import style from './manage-layout.module.scss';
-
-const LINKS = {
-  list: '/manage/list',
-  star: '/manage/star',
-  trash: '/manage/trash',
-};
 
 export const ManageLayout: FC = () => {
   const location = useLocation();
@@ -18,13 +13,13 @@ export const ManageLayout: FC = () => {
     location.pathname.startsWith(pathname) ? 'link' : 'text';
 
   const handleRouteToList = () => {
-    void navigate(LINKS.list);
+    void navigate(MANAGE_LIST_PATH);
   };
   const handleRouteToStar = () => {
-    void navigate(LINKS.star);
+    void navigate(MANAGE_STAR_PATH);
   };
   const handleRouteToTrash = () => {
-    void navigate(LINKS.trash);
+    void navigate(MANAGE_TRASH_PATH);
   };
 
   return (
@@ -35,7 +30,7 @@ export const ManageLayout: FC = () => {
             新建问卷
           </Button>
           <Button
-            type={getButtonType(LINKS.list)}
+            type={getButtonType(MANAGE_LIST_PATH)}
             size="large"
             icon={<BarsOutlined />}
             onClick={handleRouteToList}
@@ -43,7 +38,7 @@ export const ManageLayout: FC = () => {
             我的问卷
           </Button>
           <Button
-            type={getButtonType(LINKS.star)}
+            type={getButtonType(MANAGE_STAR_PATH)}
             size="large"
             icon={<StarOutlined />}
             onClick={handleRouteToStar}
@@ -51,7 +46,7 @@ export const ManageLayout: FC = () => {
             星标问卷
           </Button>
           <Button
-            type={getButtonType(LINKS.trash)}
+            type={getButtonType(MANAGE_TRASH_PATH)}
             size="large"
             icon={<DeleteOutlined />}
             onClick={handleRouteToTrash}

@@ -1,0 +1,21 @@
+.container {
+  padding: 12px;
+  border-radius: 3px;
+  background-color: #fff;
+  &:hover {
+    box-shadow: 0px 4px 10px #e8e8e8;
+  }
+}
+.title {
+  width: 100%;
+  :global(.ant-space-item):nth-child(2) {
+    margin-left: auto;
+  }
+}
+
+.button-container {
+  width: 100%;
+  :global(.ant-space-item):nth-child(3) {
+    margin-left: auto;
+  }
+}
