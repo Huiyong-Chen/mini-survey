@@ -25,12 +25,18 @@ catalogs:
     globals: ^17.5.0
     jiti: ^2.6.1
     typescript-eslint: ^8.58.1
+  hono:
+    '@hono/node-server': ^1.19.14
+    hono: ^4.12.14
   lint:
     '@commitlint/cli': ^20.5.0
     '@commitlint/config-conventional': ^20.5.0
     '@commitlint/types': ^20.5.0
     husky: ^9.1.7
     lint-staged: ^16.4.0
+  mock:
+    '@types/mockjs': ^1.0.10
+    mockjs: ^1.1.0
   prettier:
     eslint-config-prettier: ^10.1.8
     prettier: ^3.8.2

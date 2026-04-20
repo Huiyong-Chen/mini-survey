@@ -9,7 +9,7 @@ const config: Config[] = defineConfig([
     files: ['**/*.mts'],
     languageOptions: {
       parserOptions: {
-        projectService: true,
+        project: './tsconfig.json',
         tsconfigRootDir: import.meta.dirname,
       },
     },

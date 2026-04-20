@@ -1,5 +1,5 @@
 import { Button, Typography } from 'antd';
-import type { FC } from 'react';
+import { type FC } from 'react';
 import style from './home.module.scss';
 
 export const Home: FC = () => {

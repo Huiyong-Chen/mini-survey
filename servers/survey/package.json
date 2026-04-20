@@ -1,0 +1,23 @@
+{
+  "name": "@survey/server",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx --watch src/index.mts"
+  },
+  "dependencies": {
+    "@hono/node-server": "catalog:hono",
+    "hono": "catalog:hono",
+    "tsx": "catalog:"
+  },
+  "devDependencies": {
+    "@survey/ts-config": "workspace:*",
+    "@types/mockjs": "catalog:mock",
+    "mockjs": "catalog:mock"
+  },
+  "packageManager": "pnpm@10.33.0"
+}

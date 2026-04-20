@@ -14,6 +14,7 @@
     "lint-staged": "lint-staged --config lint-staged.config.mts",
     "prepare": "husky",
     "survey:dev": "pnpm -F @survey/app dev",
+    "survey:server": "pnpm -F @survey/server dev",
     "test": "vitest run",
     "test:changed": "vitest run --changed",
     "test:ui": "vitest --ui",
