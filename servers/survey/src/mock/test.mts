@@ -1,4 +1,4 @@
-import type { MockItem } from '../types/api.mock.api.mts';
+import type { MockItem } from './api.mock.types.mts';
 import mock from 'mockjs';
 
 const api_test: MockItem<{
@@ -8,7 +8,7 @@ const api_test: MockItem<{
   method: 'get',
   response: () => {
     return {
-      error: 0,
+      code: 0,
       data: {
         name: mock.Random.cname(),
       },

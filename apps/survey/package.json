@@ -14,6 +14,7 @@
   "dependencies": {
     "@ant-design/icons": "catalog:antd",
     "antd": "catalog:antd",
+    "axios": "catalog:",
     "react": "catalog:react",
     "react-dom": "catalog:react",
     "react-router": "catalog:react"

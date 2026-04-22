@@ -1,8 +1,9 @@
 import { Empty, Space, Typography } from 'antd';
-import { useState, type FC } from 'react';
+import { useEffect, useState, type FC } from 'react';
 import style from './common-list.module.scss';
 import { QuestionCard, type QuestionCardProps } from './components/QuestionCard';
 import { ListSearch } from './components/ListSearch';
+import { getQuestionService } from '@/api/question.mjs';
 
 const rowQuestionList: QuestionCardProps[] = [
   {
@@ -40,6 +41,14 @@ const rowQuestionList: QuestionCardProps[] = [
 ];
 export const QuestionList: FC = () => {
   const [questionList, setQuestionList] = useState<QuestionCardProps[]>(rowQuestionList);
+
+  useEffect(() => {
+    const fn = async () => {
+      const res = await getQuestionService('1');
+      console.log(res);
+    };
+    void fn();
+  }, []);
 
   return (
     <>

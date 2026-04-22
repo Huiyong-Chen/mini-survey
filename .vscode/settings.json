@@ -16,5 +16,5 @@
     "**/dist": true,
     "**/build": true
   },
-  "cSpell.words": ["Popconfirm", "Sider"]
+  "cSpell.words": ["ctitle", "Popconfirm", "Sider"]
 }

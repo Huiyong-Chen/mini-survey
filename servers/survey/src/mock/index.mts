@@ -1,4 +1,4 @@
-import type { MockItem } from '../types/api.mock.api.mjs';
+import type { MockItem } from './api.mock.types.mts';
 import { question } from './question.mts';
 import { test } from './test.mts';
 

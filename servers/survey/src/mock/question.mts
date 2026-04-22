@@ -1,4 +1,4 @@
-import type { MockItem } from '../types/api.mock.api.mts';
+import type { MockItem } from './api.mock.types.mts';
 import mock from 'mockjs';
 
 const question_detail: MockItem<{
@@ -8,12 +8,16 @@ const question_detail: MockItem<{
   url: '/api/question/:id',
   method: 'get',
   response: () => {
+    // return {
+    //   code: 0,
+    //   data: {
+    //     id: mock.Random.id(),
+    //     title: mock.Random.ctitle(),
+    //   },
+    // };
     return {
-      error: 0,
-      data: {
-        id: mock.Random.id(),
-        title: mock.Random.ctitle(),
-      },
+      code: 1002,
+      msg: '错误测试',
     };
   },
 };
@@ -26,7 +30,7 @@ const question_list: MockItem<{
   method: 'get',
   response: () => {
     return {
-      error: 0,
+      code: 0,
       data: {
         id: mock.Random.id(),
         title: mock.Random.ctitle(),
