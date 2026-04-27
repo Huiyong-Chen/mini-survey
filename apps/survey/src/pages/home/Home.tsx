@@ -1,8 +1,7 @@
 import { Button, Typography } from 'antd';
-import { type FC } from 'react';
 import style from './home.module.scss';
 
-export const Home: FC = () => {
+export function Home() {
   return (
     <div className={style.container}>
       <Typography.Title>问卷调查 ｜ 在线投票</Typography.Title>
@@ -14,4 +13,4 @@ export const Home: FC = () => {
       </Button>
     </div>
   );
-};
+}

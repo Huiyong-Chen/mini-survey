@@ -1,4 +1,9 @@
 import {
+  duplicateQuestionDetail,
+  updateQuestionDetail,
+  type QuestionInfo,
+} from '@/api/question.mts';
+import {
   CopyOutlined,
   DeleteOutlined,
   EditOutlined,
@@ -7,8 +12,9 @@ import {
   StarFilled,
   StarOutlined,
 } from '@ant-design/icons';
+import { useRequest } from 'ahooks';
 import { Button, Divider, message, Modal, Popconfirm, Space, Tag } from 'antd';
-import { useState, type FC } from 'react';
+import { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import style from './question-card.module.scss';
 
@@ -28,17 +34,45 @@ export interface QuestionCardProps {
   answerCount: number;
 }
 
-export const QuestionCard: FC<QuestionCardProps> = ({
+export function QuestionCard({
   id,
   title,
   createdTime,
   isPublished,
   answerCount,
   isStar,
-}) => {
+}: QuestionCardProps) {
   const navigate = useNavigate();
-
   const [stared, setStared] = useState(isStar);
+  const [deleted, setDeleted] = useState(false);
+  const handleRequestSuccessRef = useRef<() => void>(undefined);
+
+  const { loading, run: handleUpdateDetail } = useRequest(
+    async (newData: Partial<Pick<QuestionInfo, 'isStar' | 'isDeleted'>>) => {
+      return await updateQuestionDetail(id, newData);
+    },
+    {
+      manual: true,
+      onSuccess: () => {
+        if (handleRequestSuccessRef.current) {
+          handleRequestSuccessRef.current();
+        }
+      },
+    },
+  );
+
+  const { loading: duplicateLoading, run: handleDuplicateDetail } = useRequest(
+    async () => {
+      return await duplicateQuestionDetail(id);
+    },
+    {
+      manual: true,
+      onSuccess: () => {
+        void navigate(`/question/edit/${id}`);
+        message.success('复制成功！');
+      },
+    },
+  );
 
   const handlePublished = () => {};
   const handleEdit = () => {
@@ -47,23 +81,30 @@ export const QuestionCard: FC<QuestionCardProps> = ({
   const handleStatistics = () => {
     void navigate(`/question/stat/${id}`);
   };
-  const handleStar = () => {
-    setStared(!stared);
 
-    message.success(stared ? '取消收藏' : '收藏成功！');
-  };
-  const handleCopy = () => {
-    message.success('复制成功！');
+  const handleStar = () => {
+    handleRequestSuccessRef.current = () => {
+      setStared((prev) => !prev);
+      message.success(stared ? '取消收藏' : '收藏成功！');
+    };
+    handleUpdateDetail({ isStar: !stared });
   };
   const handleDelete = () => {
     Modal.confirm({
       title: '确定删除该问卷？',
       icon: <ExclamationCircleOutlined />,
       onOk: () => {
-        message.success('删除成功！');
+        handleRequestSuccessRef.current = () => {
+          setDeleted(true);
+          message.success('删除成功！');
+        };
+        handleUpdateDetail({ isDeleted: true });
       },
     });
   };
+  if (deleted) {
+    return null;
+  }
   return (
     <>
       <div className={style.container}>
@@ -98,6 +139,7 @@ export const QuestionCard: FC<QuestionCardProps> = ({
             type="text"
             size="small"
             icon={stared ? <StarFilled style={{ color: '#ffaa00' }} /> : <StarOutlined />}
+            disabled={loading}
             onClick={handleStar}
           >
             {stared ? '取消星标' : '星标'}
@@ -106,17 +148,23 @@ export const QuestionCard: FC<QuestionCardProps> = ({
             title="确定复制该问卷？"
             okText="确定"
             cancelText="取消"
-            onConfirm={handleCopy}
+            onConfirm={handleDuplicateDetail}
           >
-            <Button type="text" size="small" icon={<CopyOutlined />}>
+            <Button type="text" size="small" icon={<CopyOutlined />} disabled={duplicateLoading}>
               复制
             </Button>
           </Popconfirm>
-          <Button type="text" size="small" icon={<DeleteOutlined />} onClick={handleDelete}>
+          <Button
+            type="text"
+            size="small"
+            icon={<DeleteOutlined />}
+            onClick={handleDelete}
+            disabled={loading}
+          >
             删除
           </Button>
         </Space>
       </div>
     </>
   );
-};
+}

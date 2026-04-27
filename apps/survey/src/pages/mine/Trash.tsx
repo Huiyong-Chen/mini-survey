@@ -1,54 +1,26 @@
+import { deleteQuestion, updateQuestionDetail } from '@/api/question.mts';
+import { Pagination } from '@/components/Pagination';
+import { useLoadQuestionList } from '@/hooks/useLoadDataQuestionList.mts';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { useRequest } from 'ahooks';
 import {
   Button,
   Empty,
   message,
   Modal,
   Space,
+  Spin,
   Table,
   Tag,
   Typography,
   type TableColumnsType,
   type TableProps,
 } from 'antd';
-import { useState, type FC } from 'react';
+import React, { useState } from 'react';
+import { useSearchParams } from 'react-router';
 import style from './common-list.module.scss';
-import { type QuestionCardProps } from './components/QuestionCard';
 import { ListSearch } from './components/ListSearch';
-const rowQuestionList: QuestionCardProps[] = [
-  {
-    id: 'q1',
-    title: '问卷1',
-    createdTime: Date.now(),
-    isPublished: false,
-    isStar: false,
-    answerCount: 10,
-  },
-  {
-    id: 'q2',
-    title: '问卷2',
-    createdTime: Date.now(),
-    isPublished: false,
-    isStar: true,
-    answerCount: 10,
-  },
-  {
-    id: 'q3',
-    title: '问卷3',
-    createdTime: Date.now(),
-    isPublished: true,
-    isStar: true,
-    answerCount: 10,
-  },
-  {
-    id: 'q4',
-    title: '问卷4',
-    createdTime: Date.now(),
-    isPublished: true,
-    isStar: false,
-    answerCount: 10,
-  },
-];
+import { type QuestionCardProps } from './components/QuestionCard';
 
 const columns: TableColumnsType<QuestionCardProps> = [
   {
@@ -72,18 +44,63 @@ const columns: TableColumnsType<QuestionCardProps> = [
   },
 ];
 
-export const Trash: FC = () => {
-  const [questionList, setQuestionList] = useState<QuestionCardProps[]>(rowQuestionList);
+export function Trash() {
+  const [searchParams] = useSearchParams();
+  const { loadData } = useLoadQuestionList({ isDeleted: true });
+
+  // 组件第一次请求数据需要显示loading，后续都以蒙层替代
+  const [initialized, setInitialized] = useState(false);
+
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
-  const rowSelection: TableProps<QuestionCardProps>['rowSelection'] = {
-    type: 'checkbox',
-    onChange: (selectedRowKeys: React.Key[], selectedRows: QuestionCardProps[]) => {
-      setSelectedRowKeys(selectedRowKeys);
-    },
-  };
+  // 数据加载成功的回调
+  const handleDataLoadSuccess = !initialized
+    ? () => {
+        setInitialized(true);
+      }
+    : undefined;
+  const {
+    data = { list: [], total: 0 },
+    loading,
+    refresh,
+  } = useRequest(loadData, {
+    refreshDeps: [searchParams],
+    onSuccess: handleDataLoadSuccess,
+  });
 
-  const handleDelete = () => {
+  const { run: handleRecover } = useRequest(
+    async () => {
+      for (const id of selectedRowKeys) {
+        await updateQuestionDetail(id.toString(), { isDeleted: false });
+      }
+    },
+    {
+      manual: true,
+      debounceWait: 250,
+      onSuccess: () => {
+        message.success('恢复成功');
+        setSelectedRowKeys([]);
+        refresh();
+      },
+    },
+  );
+
+  const { run: handleDelete } = useRequest(
+    async () => {
+      await deleteQuestion(selectedRowKeys as string[]);
+    },
+    {
+      manual: true,
+      debounceWait: 250,
+      onSuccess: () => {
+        message.success('删除成功');
+        setSelectedRowKeys([]);
+        refresh();
+      },
+    },
+  );
+
+  const handleDeleteConfirm = () => {
     Modal.confirm({
       title: '确认彻底删除该问卷？',
       icon: <ExclamationCircleOutlined />,
@@ -91,20 +108,28 @@ export const Trash: FC = () => {
       okText: '确定',
       cancelText: '取消',
       onOk: () => {
-        message.success('删除成功');
+        handleDelete();
       },
     });
   };
-  const handleRecover = () => {
+  const handleRecoverConfirm = () => {
     Modal.confirm({
       title: '确认恢复该问卷？',
       icon: <ExclamationCircleOutlined />,
       okText: '确定',
       cancelText: '取消',
       onOk: () => {
-        message.success('恢复成功');
+        handleRecover();
       },
     });
+  };
+
+  const { list, total } = data;
+  const rowSelection: TableProps<QuestionCardProps>['rowSelection'] = {
+    type: 'checkbox',
+    onChange: (selectedRowKeys: React.Key[]) => {
+      setSelectedRowKeys(selectedRowKeys);
+    },
   };
 
   return (
@@ -114,19 +139,28 @@ export const Trash: FC = () => {
         <ListSearch className={style['list-search']} />
       </div>
       <Space orientation="vertical" className={style.space}>
-        {questionList.length === 0 && <Empty />}
-        {questionList.length && (
+        {!initialized ? (
+          loading && (
+            <Spin size="large" style={{ marginLeft: '50%', transform: 'translateX(-50%)' }} />
+          )
+        ) : list.length === 0 ? (
+          <Empty />
+        ) : (
           <>
             <Space>
-              <Button type="primary" disabled={!selectedRowKeys.length} onClick={handleRecover}>
+              <Button
+                type="primary"
+                disabled={!selectedRowKeys.length}
+                onClick={handleRecoverConfirm}
+              >
                 恢复
               </Button>
-              <Button danger disabled={!selectedRowKeys.length} onClick={handleDelete}>
+              <Button danger disabled={!selectedRowKeys.length} onClick={handleDeleteConfirm}>
                 彻底删除
               </Button>
             </Space>
             <Table
-              dataSource={questionList}
+              dataSource={list}
               rowSelection={rowSelection}
               rowKey={(q) => q.id}
               columns={columns}
@@ -135,7 +169,7 @@ export const Trash: FC = () => {
           </>
         )}
       </Space>
-      <div className={style.footer}>loadMore</div>
+      <Pagination className={style.footer} total={total} />
     </>
   );
-};
+}

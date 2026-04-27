@@ -1,7 +1,6 @@
 import { LOGIN_PATH } from '@/router';
 import { UserAddOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Space, Typography, type FormProps } from 'antd';
-import type { FC } from 'react';
 import { Link } from 'react-router';
 import style from './register.module.scss';
 
@@ -12,7 +11,7 @@ interface RegisterForm {
   nickname?: string;
 }
 
-export const Register: FC = () => {
+export function Register() {
   const handleFinish: FormProps<RegisterForm>['onFinish'] = (values) => {
     console.log(values);
   };
@@ -84,4 +83,4 @@ export const Register: FC = () => {
       </Form>
     </div>
   );
-};
+}

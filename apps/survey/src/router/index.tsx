@@ -47,8 +47,12 @@ export const router = createBrowserRouter([
     path: 'question',
     Component: QuestionLayout,
     children: [
-      { index: true, loader: () => redirect('/404') },
       {
+        path: 'create',
+        Component: Edit,
+      },
+      {
+        index: true,
         path: 'edit/:id',
         Component: Edit,
       },
@@ -69,3 +73,6 @@ export const REGISTER_PATH = '/register';
 export const MANAGE_LIST_PATH = '/manage/list';
 export const MANAGE_STAR_PATH = '/manage/star';
 export const MANAGE_TRASH_PATH = '/manage/trash';
+export const QUESTION_CREATE_PATH = '/question/create';
+export const QUESTION_EDIT_PATH = '/question/edit/:id';
+export const QUESTION_STAT_PATH = '/question/stat/:id';

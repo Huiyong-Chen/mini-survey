@@ -22,9 +22,13 @@ class EventEmitter<T extends Record<string, any[]>> {
   }
 }
 
+export const LOADING_START = 'LOADING_START';
+export const LOADING_END = 'LOADING_END';
 export const ERROR_API_ERROR_KEY = 'API:ERROR';
 
 type EventNames = {
+  [LOADING_START]: [];
+  [LOADING_END]: [];
   [ERROR_API_ERROR_KEY]: [message: string];
 };
 

@@ -1,6 +1,6 @@
-import { LIST_SEARCH_PARAM_KEY } from '@/constant/constant.mjs';
+import { LIST_SEARCH_KEYWORD } from '@/constant/url-search-key.mts';
 import { Input } from 'antd';
-import { useState, type ChangeEvent, type FC } from 'react';
+import { useState, type ChangeEvent } from 'react';
 import { useSearchParams } from 'react-router';
 import style from './list-search.module.scss';
 
@@ -8,15 +8,15 @@ interface ListSearchProps {
   className?: string;
 }
 
-export const ListSearch: FC<ListSearchProps> = ({ className }) => {
+export function ListSearch({ className }: ListSearchProps) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [value, setValue] = useState(searchParams.get(LIST_SEARCH_PARAM_KEY) ?? '');
+  const [value, setValue] = useState(searchParams.get(LIST_SEARCH_KEYWORD) ?? '');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
   const handleSearch = (value: string) => {
-    setSearchParams({ [LIST_SEARCH_PARAM_KEY]: value });
+    setSearchParams({ [LIST_SEARCH_KEYWORD]: value });
   };
 
   return (
@@ -30,4 +30,4 @@ export const ListSearch: FC<ListSearchProps> = ({ className }) => {
       onSearch={handleSearch}
     ></Input.Search>
   );
-};
+}

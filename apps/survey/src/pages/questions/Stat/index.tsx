@@ -1,5 +1,12 @@
-import type { FC } from 'react';
+import { useLoadQuestionDetail } from '@/hooks/useLoadDataQuestionDetail.mts';
 
-export const Stat: FC = () => {
-  return <div>Stat</div>;
-};
+export function Stat() {
+  const { data, loading } = useLoadQuestionDetail();
+
+  return (
+    <div>
+      <p>Stat page</p>
+      {loading ? <p> loading </p> : data ? <>{data.title}</> : <p>data null</p>}
+    </div>
+  );
+}

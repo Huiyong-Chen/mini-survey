@@ -1,16 +1,24 @@
-import { MANAGE_LIST_PATH, MANAGE_STAR_PATH, MANAGE_TRASH_PATH } from '@/router';
+import {
+  MANAGE_LIST_PATH,
+  MANAGE_STAR_PATH,
+  MANAGE_TRASH_PATH,
+  QUESTION_CREATE_PATH,
+} from '@/router';
 import { BarsOutlined, DeleteOutlined, PlusOutlined, StarOutlined } from '@ant-design/icons';
 import { Button, Layout, Space } from 'antd';
-import type { FC } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router';
 import style from './manage-layout.module.scss';
 
-export const ManageLayout: FC = () => {
+export function ManageLayout() {
   const location = useLocation();
   const navigate = useNavigate();
 
   const getButtonType = (pathname: string) =>
     location.pathname.startsWith(pathname) ? 'link' : 'text';
+
+  const handleRouteToCreate = () => {
+    void navigate(QUESTION_CREATE_PATH);
+  };
 
   const handleRouteToList = () => {
     void navigate(MANAGE_LIST_PATH);
@@ -26,7 +34,13 @@ export const ManageLayout: FC = () => {
     <Layout className={style.layout}>
       <Layout.Sider className={style.sider}>
         <Space orientation="vertical" className={style.space}>
-          <Button type="primary" size="large" className={style.add} icon={<PlusOutlined />}>
+          <Button
+            type="primary"
+            size="large"
+            className={style.add}
+            icon={<PlusOutlined />}
+            onClick={handleRouteToCreate}
+          >
             新建问卷
           </Button>
           <Button
@@ -62,4 +76,4 @@ export const ManageLayout: FC = () => {
       </Layout.Content>
     </Layout>
   );
-};
+}

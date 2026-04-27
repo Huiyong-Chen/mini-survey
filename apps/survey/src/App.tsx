@@ -1,13 +1,25 @@
 import event, { ERROR_API_ERROR_KEY } from '@/events/event-emitter.mts';
 import { router } from '@/router';
 import { message } from 'antd';
-import { type FC } from 'react';
+import { useEffect } from 'react';
 import { RouterProvider } from 'react-router';
 import './app.css';
+import { GlobalLoading } from './components/GlobalLoading';
 
-event.on(ERROR_API_ERROR_KEY, (msg) => {
-  message.error(msg);
-});
-export const App: FC = () => {
-  return <RouterProvider router={router}></RouterProvider>;
-};
+export function App() {
+  useEffect(() => {
+    const handleEmitMessage = (msg: string) => {
+      message.error(msg);
+    };
+    event.on(ERROR_API_ERROR_KEY, handleEmitMessage);
+    return () => {
+      event.off(ERROR_API_ERROR_KEY, handleEmitMessage);
+    };
+  }, []);
+  return (
+    <>
+      <RouterProvider router={router}></RouterProvider>
+      <GlobalLoading />
+    </>
+  );
+}

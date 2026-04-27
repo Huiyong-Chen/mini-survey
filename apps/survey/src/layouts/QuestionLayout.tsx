@@ -1,7 +1,6 @@
-import type { FC } from 'react';
 import { Outlet } from 'react-router';
 
-export const QuestionLayout: FC = () => {
+export function QuestionLayout() {
   return (
     <>
       <div>QuestionLayout</div>
@@ -10,4 +9,4 @@ export const QuestionLayout: FC = () => {
       </div>
     </>
   );
-};
+}

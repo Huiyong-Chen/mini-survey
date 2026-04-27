@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "catalog:antd",
+    "ahooks": "catalog:",
     "antd": "catalog:antd",
     "axios": "catalog:",
     "react": "catalog:react",

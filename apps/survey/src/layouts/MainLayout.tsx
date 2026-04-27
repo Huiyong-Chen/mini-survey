@@ -1,11 +1,10 @@
-import { Layout } from 'antd';
-import type { FC } from 'react';
-import { Outlet } from 'react-router';
-import style from './main-layout.module.scss';
 import { Logo } from '@/components/Logo';
 import { UserInfo } from '@/components/UserInfo';
+import { Layout } from 'antd';
+import { Outlet } from 'react-router';
+import style from './main-layout.module.scss';
 
-export const MainLayout: FC = () => {
+export function MainLayout() {
   return (
     <Layout className={style.layout}>
       <Layout.Header className={style.header}>
@@ -20,4 +19,4 @@ export const MainLayout: FC = () => {
       </Layout.Footer>
     </Layout>
   );
-};
+}
