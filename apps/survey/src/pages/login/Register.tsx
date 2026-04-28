@@ -1,7 +1,10 @@
+import { register } from '@/api/user.mts';
 import { LOGIN_PATH } from '@/router';
 import { UserAddOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Space, Typography, type FormProps } from 'antd';
-import { Link } from 'react-router';
+import { useRequest } from 'ahooks';
+import { Button, Form, Input, message, Space, Typography, type FormProps } from 'antd';
+import { type ReactNode } from 'react';
+import { Link, useNavigate } from 'react-router';
 import style from './register.module.scss';
 
 interface RegisterForm {
@@ -11,9 +14,22 @@ interface RegisterForm {
   nickname?: string;
 }
 
-export function Register() {
-  const handleFinish: FormProps<RegisterForm>['onFinish'] = (values) => {
-    console.log(values);
+export function Register(): ReactNode {
+  const navigate = useNavigate();
+  const { loading, run: handleRegister } = useRequest(
+    async (username: string, password: string, nickname?: string) => {
+      return await register(username, password, nickname);
+    },
+    {
+      manual: true,
+      onSuccess: () => {
+        message.success('注册成功');
+        void navigate(LOGIN_PATH);
+      },
+    },
+  );
+  const handleFinish: FormProps<RegisterForm>['onFinish'] = ({ username, password, nickname }) => {
+    handleRegister(username, password, nickname);
   };
   const handleFinishFailed: FormProps<RegisterForm>['onFinishFailed'] = (errorInfo) => {
     console.log(errorInfo);
@@ -30,6 +46,7 @@ export function Register() {
         labelCol={{ span: 6 }}
         onFinish={handleFinish}
         onFinishFailed={handleFinishFailed}
+        disabled={loading}
       >
         <Form.Item<RegisterForm>
           label="用户名："

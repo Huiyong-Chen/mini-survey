@@ -3,6 +3,7 @@ import {
   updateQuestionDetail,
   type QuestionInfo,
 } from '@/api/question.mts';
+import { QUESTION_EDIT_PATH, QUESTION_STAT_PATH } from '@/router';
 import {
   CopyOutlined,
   DeleteOutlined,
@@ -67,8 +68,8 @@ export function QuestionCard({
     },
     {
       manual: true,
-      onSuccess: () => {
-        void navigate(`/question/edit/${id}`);
+      onSuccess: (data) => {
+        void navigate(QUESTION_EDIT_PATH + data!.id);
         message.success('复制成功！');
       },
     },
@@ -76,10 +77,10 @@ export function QuestionCard({
 
   const handlePublished = () => {};
   const handleEdit = () => {
-    void navigate(`/question/edit/${id}`);
+    void navigate(QUESTION_EDIT_PATH + id);
   };
   const handleStatistics = () => {
-    void navigate(`/question/stat/${id}`);
+    void navigate(QUESTION_STAT_PATH + id);
   };
 
   const handleStar = () => {

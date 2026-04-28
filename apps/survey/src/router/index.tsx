@@ -74,5 +74,5 @@ export const MANAGE_LIST_PATH = '/manage/list';
 export const MANAGE_STAR_PATH = '/manage/star';
 export const MANAGE_TRASH_PATH = '/manage/trash';
 export const QUESTION_CREATE_PATH = '/question/create';
-export const QUESTION_EDIT_PATH = '/question/edit/:id';
-export const QUESTION_STAT_PATH = '/question/stat/:id';
+export const QUESTION_EDIT_PATH = '/question/edit/';
+export const QUESTION_STAT_PATH = '/question/stat/';

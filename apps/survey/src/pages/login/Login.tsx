@@ -1,8 +1,11 @@
-import { REGISTER_PATH } from '@/router';
+import { HOME_PATH, REGISTER_PATH } from '@/router';
 import { UserAddOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input, Space, Typography, type FormProps } from 'antd';
-import { Link } from 'react-router';
+import { Button, Checkbox, Form, Input, message, Space, Typography, type FormProps } from 'antd';
+import { Link, useNavigate } from 'react-router';
 import style from './register.module.scss';
+import { useRequest } from 'ahooks';
+import { login } from '@/api/user.mts';
+import { setToken } from '@/utils/token.mjs';
 
 interface LoginForm {
   username: string;
@@ -11,8 +14,24 @@ interface LoginForm {
 }
 
 export function Login() {
-  const handleFinish: FormProps<LoginForm>['onFinish'] = (values) => {
-    console.log(values);
+  const navigate = useNavigate();
+  const { loading, run: handleRegister } = useRequest(
+    async (username: string, password: string) => {
+      return await login(username, password);
+    },
+    {
+      manual: true,
+      onSuccess: (data) => {
+        const { token } = data!;
+        setToken(token);
+        message.success('登录成功');
+
+        void navigate(HOME_PATH);
+      },
+    },
+  );
+  const handleFinish: FormProps<LoginForm>['onFinish'] = ({ username, password }) => {
+    handleRegister(username, password);
   };
   const handleFinishFailed: FormProps<LoginForm>['onFinishFailed'] = (errorInfo) => {
     console.log(errorInfo);
@@ -25,11 +44,12 @@ export function Login() {
         <Typography.Title>用户登录</Typography.Title>
       </Space>
       <Form
-        name="register"
+        name="login"
         labelCol={{ span: 6 }}
         initialValues={{ remember: true }}
         onFinish={handleFinish}
         onFinishFailed={handleFinishFailed}
+        disabled={loading}
       >
         <Form.Item<LoginForm>
           label="用户名："

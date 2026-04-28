@@ -114,7 +114,7 @@ const question_delete: MockItem<undefined> = {
   },
 };
 
-export const question = [
+export const questionApi = [
   question_list,
   question_detail,
   question_create,

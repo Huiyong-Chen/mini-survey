@@ -1,4 +1,4 @@
-import { Hono, type Context } from 'hono';
+import { Hono } from 'hono';
 import mockList from './mock/index.mts';
 
 const app = new Hono();

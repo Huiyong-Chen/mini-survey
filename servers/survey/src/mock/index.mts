@@ -1,15 +1,7 @@
 import type { MockItem } from './api.mock.types.mts';
-import { question } from './question.mts';
-import { test } from './test.mts';
+import { questionApi } from './question.mts';
+import { userApi } from './user.mts';
 
-const mockList: MockItem<
-  | {
-      name: string;
-    }
-  | {
-      id: string;
-      title: string;
-    }
->[] = [...test, ...question];
+const mockList: MockItem<any>[] = [...userApi, ...questionApi];
 
 export default mockList;

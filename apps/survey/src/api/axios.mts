@@ -1,4 +1,5 @@
 import event from '@/events/event-emitter.mts';
+import { getToken } from '@/utils/token.mjs';
 import axios, { type AxiosRequestConfig, type HeadersDefaults } from 'axios';
 
 export interface ResData<T extends object | undefined> {
@@ -15,10 +16,14 @@ type RemoveOptional<T> = {
 const instance = axios.create({ timeout: 10 * 1000 });
 
 // 为每一个请求添加loading
-instance.interceptors.request.use((config) => {
-  event.emit('LOADING_START');
-  return config;
-});
+instance.interceptors.request.use(
+  (config) => {
+    config.headers.Authorization = `Bearer ${getToken()}`;
+    event.emit('LOADING_START');
+    return config;
+  },
+  (error) => Promise.reject(error as Error),
+);
 
 instance.interceptors.response.use((res) => {
   const { code, msg } = res.data as ResData<Record<string, unknown>>;
